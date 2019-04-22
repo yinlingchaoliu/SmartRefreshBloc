@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:example/base/log.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -106,7 +105,6 @@ class Example1State extends State<Example1> {
   }
 
   _onRefresh(bool up) {
-    Log.log("up value:" + up.toString());
     if (up)
       new Future.delayed(const Duration(milliseconds: 2009)).then((val) {
         data.add(new Card(

@@ -7,34 +7,34 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 ///@author: chentong
 ///2019-4-9
 ///视图层
-class TestExamplePage extends StatefulWidget {
+class DefaultListPage extends StatefulWidget {
   ///路由跳转
-  static void pushTestExamplePage(BuildContext context) {
+  static void pushDefaultListPage(BuildContext context) {
     Navigator.push(
         context,
         new CupertinoPageRoute<void>(
-            builder: (ctx) => new BlocProvider<TestExampleBloc>(
-                  child: new TestExamplePage(),
-                  bloc: new TestExampleBloc(),
+            builder: (ctx) => new BlocProvider<DefaultListBloc>(
+                  child: new DefaultListPage(),
+                  bloc: new DefaultListBloc(),
                 )));
   }
 
   ///获得当前页面实例
   static StatefulWidget newInstance() {
-    return new BlocProvider<TestExampleBloc>(
-      child: new TestExamplePage(),
-      bloc: new TestExampleBloc(),
+    return new BlocProvider<DefaultListBloc>(
+      child: new DefaultListPage(),
+      bloc: new DefaultListBloc(),
     );
   }
 
   @override
-  _TestExamplePageState createState() => new _TestExamplePageState();
+  _DefaultListPageState createState() => new _DefaultListPageState();
 }
 
 ///
 /// 页面实现
 ///
-class _TestExamplePageState extends State<TestExamplePage> {
+class _DefaultListPageState extends State<DefaultListPage> {
   @override
   void initState() {
     super.initState();
@@ -42,13 +42,15 @@ class _TestExamplePageState extends State<TestExamplePage> {
 
   @override
   Widget build(BuildContext context) {
-    final TestExampleBloc bloc = BlocProvider.of<TestExampleBloc>(context);
+    final DefaultListBloc bloc = BlocProvider.of<DefaultListBloc>(context);
 
     return new Scaffold(
         body: new SmartRefresher(
             controller: bloc.refreshController,
             enablePullDown: true,
             enablePullUp: true,
+            headerBuilder: bloc.headerCreate,
+            footerBuilder: bloc.footerCreate,
             onRefresh: (up) {
               if (up) {
                 ///延时2秒
@@ -102,7 +104,7 @@ class _TestExamplePageState extends State<TestExamplePage> {
 ///逻辑层
 ///todo:此处逻辑建议迁移出去 分离开解耦
 ///
-class TestExampleBloc extends SmartRefreshBloc {
+class DefaultListBloc extends SmartRefreshBloc {
   List<Widget> data = [];
 
   Widget buildImage(context, index) {
@@ -110,9 +112,9 @@ class TestExampleBloc extends SmartRefreshBloc {
   }
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    await getData();
+    getData();
   }
 
   @override

@@ -119,11 +119,15 @@ class TestExample2Bloc extends SmartRefreshBloc {
 
   @override
   Future getData({String labelId, int page}) async {
+    _fetch();
     return data;
   }
 
   @override
   Future onRefresh({String labelId}) async {
+    indexPage = 2;
+    data.clear();
+    _fetch();
     return data;
   }
 

@@ -18,6 +18,14 @@ class DefaultPage extends StatefulWidget {
                 )));
   }
 
+  ///获得当前页面实例
+  static StatefulWidget newInstance() {
+    return new BlocProvider<DefaultBloc>(
+      child: new DefaultPage(),
+      bloc: new DefaultBloc(),
+    );
+  }
+
   @override
   _DefaultPageState createState() => new _DefaultPageState();
 }
